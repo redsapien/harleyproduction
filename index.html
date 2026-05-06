@@ -2,425 +2,98 @@
 <html lang="es">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>HARLEY PRODUCTION | La Papa Prohibida</title>
-    <link href="https://fonts.googleapis.com/css2?family=Permanent+Marker&family=Space+Grotesk:wght@300;500;700&family=Syne:wght@400;700;800&display=swap" rel="stylesheet">
+    <title>VOICE-OVER PROMPTER | CAMILA</title>
     <style>
         :root {
-            --black: #050505;
-            --pink-neon: #ff00ff;
-            --pink-glow: rgba(255, 0, 255, 0.6);
-            --yellow-neon: #ffff00;
-            --yellow-glow: rgba(255, 255, 0, 0.6);
-            --text-gray: #b0b0b0;
-            --glass: rgba(255, 255, 255, 0.03);
+            --bg: #050505;
+            --pink: #ff00ff;
+            --yellow: #ffff00;
+            --gray: #202020;
         }
-
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            cursor: crosshair;
-        }
-
         body {
-            background-color: var(--black);
+            background: var(--bg);
             color: white;
-            font-family: 'Space Grotesk', sans-serif;
-            line-height: 1.4;
-            overflow-x: hidden;
-            background-image: 
-                radial-gradient(circle at 10% 20%, rgba(255, 0, 255, 0.05) 0%, transparent 20%),
-                radial-gradient(circle at 90% 80%, rgba(255, 255, 0, 0.05) 0%, transparent 20%);
-        }
-
-        /* Particles Canvas */
-        #canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-            padding: 40px 20px;
-        }
-
-        /* HEADER SECTION */
-        header {
+            font-family: 'Segoe UI', sans-serif;
+            padding: 20px;
             text-align: center;
-            padding: 80px 0;
-            position: relative;
         }
-
-        .harley-title {
-            font-family: 'Permanent Marker', cursive;
-            font-size: clamp(3rem, 10vw, 6rem);
-            line-height: 0.9;
-            text-transform: uppercase;
-            margin-bottom: 20px;
-            transform: rotate(-2deg);
-            filter: drop-shadow(0 0 10px var(--pink-neon));
+        .header {
+            border-bottom: 2px solid var(--pink);
+            margin-bottom: 30px;
+            padding-bottom: 10px;
         }
+        .header h1 { font-size: 1.2rem; color: var(--pink); letter-spacing: 4px; }
+        
+        .script-container { max-width: 600px; margin: 0 auto; text-align: left; }
 
-        .title-pink { color: var(--pink-neon); text-shadow: 0 0 20px var(--pink-neon); }
-        .title-yellow { color: var(--yellow-neon); text-shadow: 0 0 20px var(--yellow-neon); }
-
-        .subtitle {
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-            letter-spacing: 5px;
-            color: white;
-            opacity: 0.8;
-            margin-top: 10px;
-        }
-
-        /* MAIN SCRIPT INFO */
-        .project-meta {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 60px;
-        }
-
-        .meta-card {
-            background: var(--glass);
-            border: 1px solid rgba(255,255,255,0.1);
+        .block {
+            background: var(--gray);
             padding: 25px;
             border-radius: 15px;
-            backdrop-filter: blur(10px);
-            text-align: center;
-            transition: 0.3s;
-        }
-
-        .meta-card:hover { border-color: var(--pink-neon); transform: translateY(-5px); }
-        .meta-card h4 { font-size: 0.7rem; letter-spacing: 2px; color: var(--text-gray); margin-bottom: 5px; }
-        .meta-card p { font-weight: 700; font-size: 1.2rem; }
-
-        /* SCRIPT TABLE AREA */
-        .script-section { margin-top: 40px; }
-
-        .timeline-item {
-            display: grid;
-            grid-template-columns: 120px 1fr 1.2fr;
-            gap: 25px;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
+            border-left: 5px solid var(--yellow);
             position: relative;
-            animation: slideIn 0.8s cubic-bezier(0.2, 0.8, 0.2, 1) both;
         }
-
-        .time-box {
-            background: rgba(255,255,255,0.05);
-            height: fit-content;
-            padding: 15px;
-            border-radius: 10px;
-            text-align: center;
-            border-left: 4px solid var(--pink-neon);
-            font-family: 'Syne', sans-serif;
-            font-weight: 800;
-        }
-
-        .visual-box, .audio-box {
-            background: var(--glass);
-            padding: 30px;
-            border-radius: 20px;
-            border: 1px solid rgba(255,255,255,0.05);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .visual-box::before {
-            content: 'VISUAL';
+        .time {
             position: absolute;
             top: 10px; right: 15px;
-            font-size: 0.6rem;
-            color: var(--yellow-neon);
-            letter-spacing: 2px;
-        }
-
-        .audio-box::before {
-            content: 'AUDIO';
-            position: absolute;
-            top: 10px; right: 15px;
-            font-size: 0.6rem;
-            color: var(--pink-neon);
-            letter-spacing: 2px;
-        }
-
-        .visual-box b { color: var(--yellow-neon); }
-        .audio-box b { color: var(--pink-neon); }
-
-        /* ROLE COLORS */
-        .dahiana-text { color: var(--yellow-neon); text-shadow: 0 0 5px var(--yellow-glow); }
-        .camila-text { color: var(--pink-neon); text-shadow: 0 0 5px var(--pink-glow); }
-
-        /* DIRECTION NOTES SECTION (CAMILA FOCUS) */
-        .directors-cut {
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a001a 100%);
-            border: 2px solid var(--pink-neon);
-            border-radius: 40px;
-            padding: 60px;
-            margin-top: 100px;
-            position: relative;
-            box-shadow: 0 0 40px rgba(255, 0, 255, 0.2);
-        }
-
-        .directors-cut::after {
-            content: 'CAMILA ONLY';
-            position: absolute;
-            top: -15px;
-            right: 40px;
-            background: var(--pink-neon);
-            color: black;
-            padding: 5px 20px;
-            font-weight: 900;
             font-size: 0.8rem;
-            border-radius: 5px;
-            transform: rotate(2deg);
+            color: var(--yellow);
+            font-weight: bold;
         }
-
-        .directors-cut h2 {
-            font-family: 'Permanent Marker', cursive;
-            font-size: 3rem;
-            color: white;
-            margin-bottom: 40px;
+        .line {
+            font-size: 1.4rem;
+            line-height: 1.6;
+            font-weight: 500;
         }
-
-        .note-item {
-            margin-bottom: 35px;
-            padding-left: 25px;
-            border-left: 2px dashed var(--pink-neon);
-        }
-
-        .note-item h3 {
-            color: var(--pink-neon);
-            text-transform: uppercase;
-            font-size: 1.1rem;
-            margin-bottom: 10px;
-            font-family: 'Syne', sans-serif;
-        }
-
-        .note-item p { color: var(--text-gray); font-size: 1.1rem; }
-
-        /* FOOTER */
-        footer {
-            text-align: center;
-            padding: 100px 0 50px;
-            font-family: 'Syne', sans-serif;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            color: var(--text-gray);
-            font-size: 0.7rem;
-        }
-
-        /* ANIMATIONS */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateX(-50px); }
-            to { opacity: 1; transform: translateX(0); }
-        }
-
-        .flicker {
-            animation: flicker 3s linear infinite;
-        }
-
-        @keyframes flicker {
-            0%, 19.999%, 22%, 62.999%, 64%, 64.999%, 70%, 100% { opacity: 1; }
-            20%, 21.999%, 63%, 63.999%, 65%, 69.999% { opacity: 0.4; }
-        }
-
-        /* MOBILE OPTIMIZATION */
-        @media (max-width: 850px) {
-            .timeline-item { grid-template-columns: 1fr; }
-            .time-box { width: 100%; border-left: none; border-bottom: 4px solid var(--pink-neon); }
-            .directors-cut { padding: 30px; }
-            .harley-title { font-size: 4rem; }
+        .emphasis { color: var(--pink); font-weight: 800; }
+        .direction {
+            display: block;
+            margin-top: 10px;
+            font-size: 0.85rem;
+            color: #888;
+            font-style: italic;
         }
     </style>
 </head>
 <body>
-
-    <canvas id="canvas"></canvas>
-
-    <div class="container">
-        <header>
-            <div class="harley-title flicker">
-                <span class="title-pink">Chaos</span> <span class="title-yellow">&</span> <br>
-                <span class="title-yellow">Flavor</span>
-            </div>
-            <div class="subtitle">LA PAPA PROHIBIDA X RED SAPIEN</div>
-        </header>
-
-        <section class="project-meta">
-            <div class="meta-card">
-                <h4>CLIENTE</h4>
-                <p>PAPA PROHIBIDA</p>
-            </div>
-            <div class="meta-card">
-                <h4>DURACIÓN</h4>
-                <p>29-30 SEG</p>
-            </div>
-            <div class="meta-card" style="border-color: var(--yellow-neon);">
-                <h4>ACCIÓN</h4>
-                <p class="dahiana-text">DAHIANA</p>
-            </div>
-            <div class="meta-card" style="border-color: var(--pink-neon);">
-                <h4>VOZ EN OFF</h4>
-                <p class="camila-text">CAMILA</p>
-            </div>
-        </section>
-
-        <div class="script-section">
-            
-            <div class="timeline-item" style="animation-delay: 0.1s;">
-                <div class="time-box">00-06s</div>
-                <div class="visual-box">
-                    <p><b>ESCENA DE APERTURA:</b> Suena el timbre. <span class="dahiana-text">Dahiana</span> corre feliz a la puerta. Solo se ven las manos del domiciliario entregando las bolsas de marca. Ella recibe con una sonrisa explosiva y cierra la puerta.</p>
-                </div>
-                <div class="audio-box">
-                    <p class="camila-text"><b>LOCUCIÓN (Voz sugerente):</b><br>"Descubrimos el pecado de Villamaría... y sí, es tan real como se ve. ¡Llegó La Papa Prohibida!"</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" style="animation-delay: 0.3s;">
-                <div class="time-box">06-13s</div>
-                <div class="visual-box">
-                    <p><b>REVELACIÓN DEL PRODUCTO:</b> <span class="dahiana-text">Dahiana</span> y <span class="camila-text">Camila</span> en el sofá. Primer plano de manos descorchando el papel del empaque. El humo/vapor debe ser protagonista.</p>
-                </div>
-                <div class="audio-box">
-                    <p><b>SFX: [Sonido de papel crujiente - ASMR]</b></p>
-                    <p class="camila-text">"Lo mejor es que tienen domicilios hasta la madrugada. El plan perfecto para un parche en casa."</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" style="animation-delay: 0.5s;">
-                <div class="time-box">13-21s</div>
-                <div class="visual-box">
-                    <p><b>EL DISFRUTE:</b> <span class="dahiana-text">Dahiana</span> le da un mordisco agresivo y feliz a la hamburguesa (pan extra suave). Luego <span class="camila-text">Camila</span> muestra a cámara <b>La Exclusiva</b> con el queso estirándose al máximo.</p>
-                </div>
-                <div class="audio-box">
-                    <p class="camila-text">"Miren esta hamburguesa: pan extra suave y carne 100% casera. Y obvio, **La Exclusiva**, la salchipapa que manda la parada en La Villa."</p>
-                </div>
-            </div>
-
-            <div class="timeline-item" style="animation-delay: 0.7s;">
-                <div class="time-box">21-30s</div>
-                <div class="visual-box">
-                    <p><b>CIERRE:</b> Ambas brindan con jugo o cerveza, ríen hacia la cámara. Plano final de los empaques o el logo con el Call to Action.</p>
-                </div>
-                <div class="audio-box">
-                    <p class="camila-text">"Un juguito o una pola y ya tienes el día ganado. No esperen más, ¡hagan ya su pedido!"</p>
-                </div>
-            </div>
-
-        </div>
-
-        <section class="directors-cut">
-            <h2>CAMILA'S EXCLUSIVE NOTES</h2>
-            
-            <div class="note-item">
-                <h3>1. EL PODER DE SU VOZ</h3>
-                <p>Usted tiene el control del antojo. No lea el guion, nárrelo con esa voz de "tengo un secreto delicioso". Imagine que le está enviando una nota de voz a una amiga que no ha probado La Papa Prohibida. Su tono debe ser provocativo pero muy natural.</p>
-            </div>
-
-            <div class="note-item">
-                <h3>2. EL MOMENTO "LA EXCLUSIVA"</h3>
-                <p>Cuando usted muestre la salchipapa a la cámara, asegúrese de que el queso haga ese hilo largo. Usted es la "curadora" del sabor en esa toma; mueva la caja ligeramente para que las luces del lugar hagan brillar la salsa.</p>
-            </div>
-
-            <div class="note-item">
-                <h3>3. QUÍMICA Y REACCIÓN</h3>
-                <p>Aunque usted sea la voz en off, su presencia física en las tomas de apoyo es vital. Mire a Dahiana como si compartieran el mejor secreto de Villamaría. Usted debe verse como la cómplice perfecta del "pecado".</p>
-            </div>
-
-            <div class="note-item">
-                <h3>4. GRABACIÓN DE AUDIO</h3>
-                <p>Usted debe grabar su voz después de que tengamos las tomas finales. Busque un lugar sin ruido, use el micrófono del celular cerca de su boca pero sin soplarlo. Queremos esa calidez de voz íntima.</p>
-            </div>
-        </section>
-
-        <footer>
-            GUION DOMICILIOS LA PAPA PROHIBIDA // RED SAPIEN EST. 2026
-        </footer>
+    <div class="header">
+        <h1>CAMILA | VOICE-OVER SESSION</h1>
+        <p>Cliente: La Papa Prohibida</p>
     </div>
 
-    <script>
-        const canvas = document.getElementById('canvas');
-        const ctx = canvas.getContext('2d');
-        let particles = [];
+    <div class="script-container">
+        <div class="block">
+            <span class="time">00 - 06s</span>
+            <p class="line">
+                Descubrimos el <span class="emphasis">pecado</span> de Villamaría... y sí, es tan real como se ve. ¡Llegó La Papa Prohibida!
+            </p>
+            <span class="direction">Tip: Empieza con un aire de misterio, como contando un secreto.</span>
+        </div>
 
-        function initCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
+        <div class="block" style="border-left-color: var(--pink);">
+            <span class="time">06 - 13s</span>
+            <p class="line">
+                Lo mejor es que tienen domicilios hasta la <span class="emphasis">madrugada</span>. El plan perfecto para un parche en casa.
+            </p>
+            <span class="direction">Tip: Sonríe mientras hablas, se nota en el tono de voz.</span>
+        </div>
 
-        class Particle {
-            constructor() {
-                this.reset();
-            }
-            reset() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
-                this.size = Math.random() * 3 + 1;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = (Math.random() - 0.5) * 0.5;
-                this.color = Math.random() > 0.5 ? '#ff00ff' : '#ffff00';
-                this.opacity = Math.random() * 0.5;
-            }
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.x < 0 || this.x > canvas.width) this.speedX *= -1;
-                if (this.y < 0 || this.y > canvas.height) this.speedY *= -1;
-            }
-            draw() {
-                ctx.globalAlpha = this.opacity;
-                ctx.fillStyle = this.color;
-                ctx.beginPath();
-                // Draw small hearts/diamonds simplified
-                ctx.moveTo(this.x, this.y);
-                ctx.lineTo(this.x + this.size, this.y + this.size);
-                ctx.lineTo(this.x, this.y + (this.size * 2));
-                ctx.lineTo(this.x - this.size, this.y + this.size);
-                ctx.closePath();
-                ctx.fill();
-            }
-        }
+        <div class="block">
+            <span class="time">13 - 21s</span>
+            <p class="line">
+                Miren esta hamburguesa: pan extra suave y carne cien por ciento casera. Y obvio... <span class="emphasis">La Exclusiva</span>, la salchipapa que manda la parada en La Villa.
+            </p>
+            <span class="direction">Tip: Dale fuerza a "La Exclusiva", es el producto estrella.</span>
+        </div>
 
-        function createParticles() {
-            for (let i = 0; i < 60; i++) {
-                particles.push(new Particle());
-            }
-        }
-
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
-            particles.forEach(p => {
-                p.update();
-                p.draw();
-            });
-            requestAnimationFrame(animate);
-        }
-
-        window.addEventListener('resize', initCanvas);
-        initCanvas();
-        createParticles();
-        animate();
-
-        // Reveal logic
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = "1";
-                    entry.target.style.transform = "translateY(0)";
-                }
-            });
-        }, { threshold: 0.1 });
-
-        document.querySelectorAll('.timeline-item').forEach(item => {
-            observer.observe(item);
-        });
-    </script>
+        <div class="block" style="border-left-color: var(--pink);">
+            <span class="time">21 - 30s</span>
+            <p class="line">
+                Un juguito o una pola y ya tienes el día ganado. No esperen más... <span class="emphasis">¡hagan ya su pedido!</span>
+            </p>
+            <span class="direction">Tip: Cierre firme y directo. Acción total.</span>
+        </div>
+    </div>
 </body>
 </html>
